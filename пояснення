@@ -1,0 +1,69 @@
+1) HTML Заголовок
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+2) CSS Стилі
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #1c1c1c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .calculator {
+        background-color: #262626;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        width: 300px;
+    }
+    ...
+</style>
+3) HTML Розмітка Калькулятора
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" oninput="handleDisplayInput()" onkeydown="handleKeydown(event)">
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            ...
+            <button onclick="clearDisplay()" class="clear">Очистити</button>
+        </div>
+    </div>
+</body>
+JavaScript Логіка
+1)JavaScript Логіка Змінна displayInput Зберігає посилання на поле введення (екран калькулятора) для доступу до нього в функціях.
+function appendToDisplay(value) {
+    displayInput.value += value;
+}
+2) Функція appendToDisplay(value) Додає символ до рядка, який відображається на екрані. Використовується для оновлення екрану при натисканні кнопок.
+function appendToDisplay(value) {
+    displayInput.value += value;
+}
+3) Функція handleDisplayInput() Фільтрує введені символи, дозволяючи лише цифри, оператори та дужки. Виконується щоразу, коли змінюється значення поля display.
+function handleDisplayInput() {
+    displayInput.value = displayInput.value.replace(/[^0-9\+\-\*\/\.\(\)]/g, '');
+}
+4) Функція handleKeydown(event) Обробляє натискання клавіші Enter, викликаючи calculate() для обчислення виразу.
+function handleKeydown(event) {
+    if (event.key === 'Enter') {
+        calculate();
+    }
+}
+5) Функція calculate() Використовує eval() для обчислення математичного виразу. Якщо вираз неправильний, відображає повідомлення "Помилка".
+function calculate() {
+    try {
+        displayInput.value = eval(displayInput.value);
+    } catch (error) {
+        displayInput.value = 'Помилка';
+    }
+}
+6) Функція clearDisplay() Очищає екран калькулятора, видаляючи всі символи з поля display.
+function clearDisplay() {
+    displayInput.value = '';
+}
