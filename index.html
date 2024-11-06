@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Калькулятор</title>
     <style>
+        /* Основний стиль для body */
         body {
             font-family: Arial, sans-serif;
             background-color: #1c1c1c;
@@ -15,6 +16,7 @@
             margin: 0;
         }
 
+        /* Стиль для контейнера калькулятора */
         .calculator {
             background-color: #262626;
             border-radius: 10px;
@@ -23,6 +25,7 @@
             width: 300px;
         }
 
+        /* Стиль для екрану калькулятора */
         .display {
             background-color: #333333;
             border: none;
@@ -36,12 +39,14 @@
             width: 100%;
         }
 
+        /* Сітка для кнопок */
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-gap: 10px;
         }
 
+        /* Стиль для кнопок */
         .buttons button {
             background-color: #333333;
             border: none;
@@ -53,6 +58,7 @@
             width: 100%;
         }
 
+        /* Стиль для кнопок при наведенні та натисканні */
         .buttons button:hover {
             background-color: #404040;
         }
@@ -61,6 +67,7 @@
             background-color: #4d4d4d;
         }
 
+        /* Спеціальний стиль для кнопки "Очистити" */
         .buttons button.clear {
             grid-column: span 2;
             font-size: 16px;
@@ -68,9 +75,14 @@
     </style>
 </head>
 <body>
+    <!-- Контейнер калькулятора -->
     <div class="calculator">
+        <!-- Екран для відображення введеного виразу та результату -->
         <input type="text" class="display" id="display" oninput="handleDisplayInput()" onkeydown="handleKeydown(event)">
+        
+        <!-- Блок із кнопками -->
         <div class="buttons">
+            <!-- Кнопки чисел та операторів -->
             <button onclick="appendToDisplay('7')">7</button>
             <button onclick="appendToDisplay('8')">8</button>
             <button onclick="appendToDisplay('9')">9</button>
@@ -92,31 +104,39 @@
     </div>
 
     <script>
+        // Отримуємо посилання на поле відображення
         const displayInput = document.getElementById('display');
 
+        // Функція для додавання значення до екрану
         function appendToDisplay(value) {
             displayInput.value += value;
         }
 
+        // Функція для фільтрації символів у полі вводу
         function handleDisplayInput() {
-            // Перевіряємо, що поле вводу не містить неприпустимих символів
+            // Дозволяємо лише цифри, оператори та дужки
             displayInput.value = displayInput.value.replace(/[^0-9\+\-\*\/\.\(\)]/g, '');
         }
 
+        // Обробка клавіші Enter для обчислення
         function handleKeydown(event) {
             if (event.key === 'Enter') {
                 calculate();
             }
         }
 
+        // Функція для обчислення значення на екрані
         function calculate() {
             try {
+                // Використовуємо eval() для обчислення виразу
                 displayInput.value = eval(displayInput.value);
             } catch (error) {
+                // У разі помилки виводимо "Помилка"
                 displayInput.value = 'Помилка';
             }
         }
 
+        // Функція для очищення екрану
         function clearDisplay() {
             displayInput.value = '';
         }
